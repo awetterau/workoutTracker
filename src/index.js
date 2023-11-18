@@ -5,6 +5,7 @@ import App from './components/App'
 import reportWebVitals from './reportWebVitals'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import SignInPage from './components/SignInPage'
+import Data from './components/Data.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const user = null
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'data',
-        element: <p>data</p>
+        element: <Data />
       },
       {
         path: 'profile',
