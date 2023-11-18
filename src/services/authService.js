@@ -3,7 +3,19 @@ import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
 
 export function LoginButton() {
-  return <button onClick={() => signInWithPopup(auth, new GoogleAuthProvider())}>Sign In</button>
+  return (
+    <button
+      onClick={() => {
+        handLoginClick()
+      }}
+    >
+      Sign In
+    </button>
+  )
+}
+
+function handLoginClick() {
+  signInWithPopup(auth, new GoogleAuthProvider())
 }
 
 export function useAuth() {

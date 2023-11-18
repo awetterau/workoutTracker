@@ -11,6 +11,10 @@ const user = null
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <SignInPage />
+  },
+  {
+    path: 'home',
     element: <App user={user} />,
     children: [
       {
@@ -19,17 +23,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <p>profile</p>
+        element: <p> profile</p>
       },
       {
         path: 'calender',
         element: <p>calender</p>
       }
     ]
-  },
-  {
-    path: 'login',
-    element: <SignInPage />
   }
 ])
 

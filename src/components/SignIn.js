@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function SignIn() {
   return (
-    <Link to={'login'}>
+    <Link to={'/'}>
       <button>sign in</button>
     </Link>
   )
