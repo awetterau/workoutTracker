@@ -26,7 +26,7 @@ const api = () => {
       })
   }, [])
 
-  return <div>{/* api content */}</div>
+  return <div>{/* excercisess */}</div>
 }
 
 export default api
