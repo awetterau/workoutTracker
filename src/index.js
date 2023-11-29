@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import SignInPage from './components/SignInPage'
 import Data from './components/Data.js'
+import Profile from './components/Profile.js'
+import Calender from './components/Calender.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const user = null
@@ -24,11 +26,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <p> profile</p>
+        element: <Profile />
       },
       {
         path: 'calender',
-        element: <p>calender</p>
+        element: <Calender />
       }
     ]
   }
