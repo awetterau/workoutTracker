@@ -21,3 +21,9 @@
 .Content {
   grid-area: content;
 }
+.exerciseName {
+  font-weight: bold;
+}
+
+.characteristic {
+}
