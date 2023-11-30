@@ -13,7 +13,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {user ? <img className="userImage" src={getUserPhoto(user)} alt="user" /> : <span>Sign in to see profile</span>}
+        {user ? (
+          <Link to={'profile'}>
+            <img className="userImage" src={getUserPhoto(user)} alt="user" />
+          </Link>
+        ) : (
+          <span>Sign in to see profile</span>
+        )}
         <span className="MainTitle">Gym Tracker</span>
         {user ? <SignOut /> : <SignIn />}
       </header>
