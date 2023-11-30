@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const api = () => {
+function Api({ muscle }) {
+  const [muscleData, setMuscleData] = useState([])
   useEffect(() => {
-    const muscle = 'biceps'
     const apiKey = 'Xrl51qDFfoM9efpFLe3fQA==99IryFKClz7aqFze'
 
     fetch(`https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`, {
@@ -20,13 +20,22 @@ const api = () => {
       })
       .then(result => {
         console.log(result)
+        setMuscleData(result)
       })
       .catch(error => {
         console.error('Error:', error)
       })
   }, [])
 
-  return <div>{/* excercisess */}</div>
+  return (
+    <div>
+      {muscleData.map((item, index) => (
+        <p key={index} value={index}>
+          {item.name}
+        </p>
+      ))}
+    </div>
+  )
 }
 
-export default api
+export default Api
