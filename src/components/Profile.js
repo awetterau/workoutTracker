@@ -2,19 +2,19 @@ import { useAuth } from '../services/authService'
 import { getUserByUid, getUserPhoto } from '../services/userServices'
 
 function Profile() {
-  const currentUser = useAuth()
+  const user = useAuth()
 
   // const user = getUserByUid()
 
   return (
     <div>
-      {currentUser ? (
+      {user ? (
         <div>
-          <p>User: {currentUser.displayName}</p>
+          <p>User: {user.displayName}</p>
           <p>
-            <img className="userImage" src={getUserPhoto(currentUser)} alt="user" />
+            <img className="userImage" src={getUserPhoto(user)} alt="user"></img>
           </p>
-          <p>Last sign in: {currentUser.metadata.lastSignInTime}</p>
+          <p>Last sign in: {user.metadata.lastSignInTime}</p>
         </div>
       ) : (
         <p>Sign in to see user profiles</p>

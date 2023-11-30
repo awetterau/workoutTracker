@@ -15,7 +15,7 @@ function App() {
       <header className="App-header">
         {user ? (
           <Link to={'profile'}>
-            <img className="userImage" src={getUserPhoto(user)} alt="user" />
+            <img className="userImage" src={getUserPhoto(user)} alt="user"></img>
           </Link>
         ) : (
           <span>Sign in to see profile</span>
