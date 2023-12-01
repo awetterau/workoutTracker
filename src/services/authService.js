@@ -3,19 +3,35 @@ import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
 import { auth } from '../firebaseConfig'
 
 export function LoginButton() {
+  const [isButtonDisabled, setButtonDisabled] = useState(false)
+
+  const handleLoginClick = () => {
+    if (!isButtonDisabled) {
+      setButtonDisabled(true)
+
+      const popupListener = auth.onAuthStateChanged(user => {
+        if (user) {
+          console.log('Successfully signed in:', user)
+        } else {
+          console.error('Pop-up closed or sign-in error')
+        }
+        setButtonDisabled(false)
+        popupListener()
+      })
+
+      signInWithPopup(auth, new GoogleAuthProvider()).catch(error => {
+        console.error('Error signing in:', error)
+        setButtonDisabled(false)
+        popupListener()
+      })
+    }
+  }
+
   return (
-    <button
-      onClick={() => {
-        handLoginClick()
-      }}
-    >
+    <button onClick={handleLoginClick} disabled={isButtonDisabled}>
       Sign In
     </button>
   )
-}
-
-function handLoginClick() {
-  signInWithPopup(auth, new GoogleAuthProvider())
 }
 
 export function useAuth() {
