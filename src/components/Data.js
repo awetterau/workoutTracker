@@ -6,10 +6,20 @@ import { useAuth } from '../services/authService.js'
 function Data() {
   const [apiParameter, setApiParameter] = useState(undefined)
   const [listType, setListType] = useState('muscle')
+  const [muscleData, setMuscleData] = useState([])
   const user = useAuth()
 
   const handleClick = () => {
     addWorkoutDb(user, listType, 'test')
+  }
+  useEffect(() => {
+    console.log('use Effect')
+    returnAPI()
+  }, [apiParameter])
+
+  function returnAPI() {
+    console.log('Return API')
+    return apiParameter !== undefined && <Api addOn={apiParameter} />
   }
 
   return (
@@ -36,7 +46,10 @@ function Data() {
                 name="muscle"
                 id="muscle"
                 value={apiParameter}
-                onChange={e => setApiParameter(e.target.value)}
+                onChange={e => {
+                  setMuscleData(Api(e.target.value)) // Returns undefined
+                  console.log(muscleData)
+                }}
                 className="select"
               >
                 <option value="" disabled={apiParameter !== undefined}>
@@ -64,7 +77,9 @@ function Data() {
                 name="cardio"
                 id="cardio"
                 value={undefined}
-                onChange={e => setApiParameter(e.target.value)}
+                onChange={
+                  e => setMuscleData(Api(e.target.value)) // Returns undefined
+                }
                 className="select"
               >
                 <option value="" disabled={apiParameter !== undefined}>
@@ -80,7 +95,17 @@ function Data() {
               </select>
             )}
           </p>
-          {apiParameter !== undefined && <Api addOn={apiParameter} />}{' '}
+          <div>
+            {muscleData != undefined &&
+              muscleData.map((item, index) => (
+                <div key={index} value={index}>
+                  <p className="exerciseName">Name: {item.name}</p>
+                  <p className="characteristic">Equipment Needed: {item.equipment}</p>
+                  <p className="characteristic">Difficulty: {item.difficulty}</p>
+                  <p className="characteristic">Instructions: {item.instructions}</p>
+                </div>
+              ))}
+          </div>
           {/*   Doesnt update when muscle/type is changed   */}
           <button onClick={handleClick}>Add workout to db</button>
         </div>
