@@ -10,7 +10,7 @@ function NavBar(params) {
         <Link to={'profile'}>Profile</Link>
       </ul>
       <ul>
-        <Link to={'calender'}>Calender</Link>
+        <Link to={'calendar'}>Calendar</Link>
       </ul>
     </nav>
   )
