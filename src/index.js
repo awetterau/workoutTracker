@@ -8,6 +8,7 @@ import SignInPage from './components/SignInPage'
 import Data from './components/Data.js'
 import Profile from './components/Profile.js'
 import Calender from './components/Calender.js'
+import Suggestion from './components/Suggestion.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const user = null
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: 'calender',
         element: <Calender />
+      },
+      {
+        path: 'suggestion',
+        element: <Suggestion />
       }
     ]
   }
