@@ -13,6 +13,8 @@ export async function addWorkoutDb(user, workout, name) {
   })
 }
 
+export function addExercise() {}
+
 // export async function getUserByUid(uid) {
 //   const docRef = doc(db, 'users', uid.uid)
 //   const docSnap = await getDoc(docRef)

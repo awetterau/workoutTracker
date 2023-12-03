@@ -31,3 +31,8 @@
 .userImage {
   border-radius: 50%;
 }
+
+.Data {
+  display: flex;
+  flex-direction: column;
+}

@@ -12,6 +12,9 @@ function NavBar(params) {
       <ul>
         <Link to={'calendar'}>Calendar</Link>
       </ul>
+      <ul>
+        <Link to={'suggestion'}>Exercises</Link>
+      </ul>
     </nav>
   )
 }

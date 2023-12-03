@@ -1,7 +1,7 @@
-import Api from './Api.js'
 import { useState, useEffect } from 'react'
 import { addWorkoutDb } from '../services/workoutService.js'
 import { useAuth } from '../services/authService.js'
+import { DisplayData, getApiData } from '../services/apiService.js'
 
 function Suggestion() {
   const [apiParameter, setApiParameter] = useState(undefined)
@@ -10,14 +10,18 @@ function Suggestion() {
   const user = useAuth()
 
   useEffect(() => {
-    console.log('use Effect')
-    returnAPI()
+    const fetchData = async () => {
+      try {
+        const data = await getApiData(apiParameter)
+        setMuscleData(data)
+      } catch (error) {
+        console.log('Error fetching data:', error)
+      }
+    }
+    if (apiParameter) {
+      fetchData()
+    }
   }, [apiParameter])
-
-  function returnAPI() {
-    console.log('Return API')
-    return apiParameter !== undefined && <Api addOn={apiParameter} />
-  }
 
   return (
     <div>
@@ -44,8 +48,7 @@ function Suggestion() {
                 id="muscle"
                 value={apiParameter}
                 onChange={e => {
-                  setMuscleData(Api(e.target.value)) // Returns undefined
-                  console.log(muscleData)
+                  setApiParameter(e.target.value) // Returns undefined
                 }}
                 className="select"
               >
@@ -74,9 +77,9 @@ function Suggestion() {
                 name="cardio"
                 id="cardio"
                 value={undefined}
-                onChange={
-                  e => setMuscleData(Api(e.target.value)) // Returns undefined
-                }
+                onChange={e => {
+                  setApiParameter(e.target.value) // Returns undefined
+                }}
                 className="select"
               >
                 <option value="" disabled={apiParameter !== undefined}>
@@ -92,18 +95,7 @@ function Suggestion() {
               </select>
             )}
           </p>
-          <div>
-            {muscleData != undefined &&
-              muscleData.map((item, index) => (
-                <div key={index} value={index}>
-                  <p className="exerciseName">Name: {item.name}</p>
-                  <p className="characteristic">Equipment Needed: {item.equipment}</p>
-                  <p className="characteristic">Difficulty: {item.difficulty}</p>
-                  <p className="characteristic">Instructions: {item.instructions}</p>
-                </div>
-              ))}
-          </div>
-          {/*   Doesnt update when muscle/type is changed   */}
+          <div>{<DisplayData muscleData={muscleData} />}</div>{' '}
         </div>
       ) : (
         <p>Sign in to record data</p>
