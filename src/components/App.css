@@ -1,3 +1,11 @@
+/* Colors:
+    Primary Teal: #66FCF1
+    Dark Teal: #45A29E
+    Gray: #C5C6C7
+    Dark Blue Gray: #1F2833
+    Almonst Black: #0B0C10
+    */
+
 .App {
   text-align: center;
   height: 100vh;
@@ -35,4 +43,26 @@
 .Data {
   display: flex;
   flex-direction: column;
+}
+
+.monthButton {
+  background-color: #66fcf1;
+  margin: 15px;
+  border-radius: 5px;
+}
+
+.monthButton:hover {
+  background-color: #5ccac3;
+}
+
+.currentMonth {
+  color: purple;
+}
+
+.calendarDays {
+  background-color: purple;
+}
+
+.daysofWeek {
+  background-color: blue;
 }
