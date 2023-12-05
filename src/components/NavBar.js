@@ -7,6 +7,9 @@ function NavBar(params) {
         <Link to={'data'}>Data</Link>
       </ul>
       <ul>
+        <Link to={'dashboard'}>Dashboard</Link>
+      </ul>
+      <ul>
         <Link to={'profile'}>Profile</Link>
       </ul>
       <ul>

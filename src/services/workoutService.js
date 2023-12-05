@@ -1,20 +1,64 @@
 import { auth, db } from '../firebaseConfig'
-import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
+import { updateDoc, addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
 
-export async function addWorkoutDb(user, name, workout, bool) {
+export async function addWorkoutDb(user, name, weight, reps, sets, timed) {
   const uid = user.uid
-  const displayName = user.displayName
+  const today = new Date()
+  const month = today.getMonth() + 1
+  const year = today.getFullYear()
+  const date = today.getDate()
+  const currentDate = month + '-' + date + '-' + year
 
-  const data = { uid, displayName, workout }
-
-  console.log('is checked ----', bool)
-  if (bool) {
-    await setDoc(doc(db, 'publicWorkouts', name), {
-      data
-    })
+  console.log('hi')
+  const docs = await getDoc(doc(db, 'users', uid, 'days', currentDate))
+  if (!docs.exists()) {
+    if (timed) {
+      await setDoc(doc(db, 'users', uid, 'days', currentDate), {
+        [name]: {
+          reps,
+          sets,
+          timed
+        }
+      })
+    } else {
+      await setDoc(doc(db, 'users', uid, 'days', currentDate), {
+        [name]: {
+          weight,
+          reps,
+          sets,
+          timed
+        }
+      })
+    }
+  } else {
+    if (timed) {
+      await updateDoc(doc(db, 'users', uid, 'days', currentDate), {
+        [name]: {
+          reps,
+          sets,
+          timed
+        }
+      })
+    } else {
+      await updateDoc(doc(db, 'users', uid, 'days', currentDate), {
+        [name]: {
+          weight,
+          reps,
+          sets,
+          timed
+        }
+      })
+    }
   }
+}
+
+export async function addExcersiseDb(user, name, type) {
+  const uid = user.uid
+
+  console.log('hi')
+
   await setDoc(doc(db, 'users', uid, 'workouts', name), {
-    workout
+    type
   })
 }
 

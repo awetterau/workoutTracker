@@ -9,6 +9,7 @@ import Data from './components/Data.js'
 import Profile from './components/Profile.js'
 import Calender from './components/Calender.js'
 import Suggestion from './components/Suggestion.js'
+import Dashboard from './components/Dashboard.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const user = null
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />
+      },
+      {
+        path: 'dashboard',
+        element: <Dashboard />
       },
       {
         path: 'calendar',
