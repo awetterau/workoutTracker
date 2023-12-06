@@ -1,4 +1,7 @@
-import { useEffect } from 'react'
+import { useState } from 'react'
+import { addWorkoutDb} from '../services/workoutService.js'
+import { useAuth } from '../services/authService.js'
+
 
 export async function getApiData(addOn) {
   const apiKey = 'Xrl51qDFfoM9efpFLe3fQA==99IryFKClz7aqFze'
@@ -23,21 +26,112 @@ export async function getApiData(addOn) {
   }
 }
 
-export function DisplayData(muscleData) {
+export function DisplayData(props) {
+  const [sets, setSets] = useState("")
+  const [reps, setReps] = useState("")
+  const [weight, setWeight] = useState("")
+  const [time, setTime] = useState("")
+  const [fieldError, setFieldError] = useState(false)
+  const user = useAuth()
+
+
+  function handleThing(itemName) {
+    if (typeof props.setSelectedName === 'function') {
+      props.setSelectedName(itemName);
+    }
+  }
+
+
+  const handleAddWorkout = (item) => {
+    if (item.type != "cardio") {
+      if (reps && weight && sets) {
+        addWorkoutDb(user, item.name, weight, reps, sets, false)
+        setFieldError(false)
+      } else setFieldError(true)
+    } else {
+      if (reps && time && sets) {
+        addWorkoutDb(user, item.name, weight, time, sets, true)
+        setFieldError(false)
+      } else setFieldError(true)
+    }
+    props.setTrigger(false)
+  }
+ 
+
   return (
     <div>
-      {muscleData.muscleData.length > 0 ? (
-        muscleData.muscleData.map((item, index) => (
-          <div key={index} value={index}>
-            <p className="exerciseName">Name: {item.name}</p>
-            <p className="characteristic">Equipment Needed: {item.equipment}</p>
-            <p className="characteristic">Difficulty: {item.difficulty}</p>
-            <p className="characteristic">Instructions: {item.instructions}</p>
+      {props.muscleData.length > 0 ? (
+        props.muscleData.map((item, index) => (
+          <div key={index}>
+            {props.selectedName !== item.name ? (
+              <div onClick={() => {handleThing(item.name)
+              
+                setWeight("")
+                setReps("")
+                setTime("")
+                setSets("")}}>
+                <p className="exerciseName" >
+                  Name: {item.name}
+                </p>
+                <p className="characteristic">Difficulty: {item.difficulty}</p>
+              </div>
+            ) : (
+              item.type === "cardio" ? (
+              <div >
+                <p className="exerciseName" onClick={() => {handleThing('')
+              setWeight("")
+              setReps("")
+              setTime("")
+            setSets("")}
+              }>
+                  Name: {item.name} <button onClick={() => handleAddWorkout(item)}>Add Exercise</button>
+                </p>
+                <p className="characteristic" >Difficulty: {item.difficulty}</p>
+                <p className="characteristic" >Equipment Needed: {item.equipment}</p>
+                <span> Time(mm:ss) <input value={reps} onChange={e => setReps(e.target.value)}></input></span>
+                <p> Sets <input value={sets} onChange={e => setSets(e.target.value)}></input></p>
+                {fieldError && <p>Error: all fiels must be completed</p>}
+                <p className="characteristic" >Instructions: {item.instructions}</p>
+
+              </div>
+            ) : (
+              <div >
+                <p className="exerciseName" onClick={() => {handleThing('')
+              setWeight("")
+              setReps("")
+              setTime("")
+              setSets("")}}>
+                  Name: {item.name} <button onClick={() => handleAddWorkout(item)}>Add Exercise</button>
+                </p>
+                <p className="characteristic"  >Difficulty: {item.difficulty}</p>
+                <p className="characteristic" >Equipment Needed: {item.equipment}</p>
+                <p>Weight<input value={weight} onChange={e => setWeight(e.target.value)}></input></p>
+                <span> Reps<input value={reps} onChange={e => setReps(e.target.value)}></input></span>
+                <p> Sets <input value={sets} onChange={e => setSets(e.target.value)}></input></p>
+                {fieldError && <p>Error: all fiels must be completed</p>}
+                <p className="characteristic" >Instructions: {item.instructions}</p>
+                
+              </div>
+            ))}
           </div>
         ))
       ) : (
         <p>No data</p>
       )}
+    </div>
+  );
+}
+
+
+export function displayExcersise(item) {
+
+  return (
+    <div>
+            <p className="exerciseName">Name: {item.name}
+            <button>Add Excersise</button></p>
+            <p className="characteristic">Difficulty: {item.difficulty}</p>
+            <p className="characteristic">Equipment Needed: {item.difficulty}</p>
+            <p className="characteristic">Instructions: {item.instructions}</p>
     </div>
   )
 }

@@ -23,7 +23,7 @@ function Data(props) {
             {settingExcersise && <AddExcersise trigger={settingExcersise} setTrigger={setSettingExcersise} />}
           </div>
         )}
-        {selectedList === 'exercises' && <Suggestion />}
+        {selectedList === 'exercises' && <Suggestion setTrigger={props.setTrigger}/>}
         {selectedList === 'routines' && ''}
       </div>
     </div>

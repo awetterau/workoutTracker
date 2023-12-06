@@ -23,6 +23,7 @@ export async function addWorkoutDb(user, name, weight, reps, sets, timed) {
     } else {
       await setDoc(doc(db, 'users', uid, 'days', currentDate), {
         [name]: {
+          name,
           weight,
           reps,
           sets,
@@ -34,6 +35,7 @@ export async function addWorkoutDb(user, name, weight, reps, sets, timed) {
     if (timed) {
       await updateDoc(doc(db, 'users', uid, 'days', currentDate), {
         [name]: {
+          name,
           reps,
           sets,
           timed
@@ -42,6 +44,7 @@ export async function addWorkoutDb(user, name, weight, reps, sets, timed) {
     } else {
       await updateDoc(doc(db, 'users', uid, 'days', currentDate), {
         [name]: {
+          name,
           weight,
           reps,
           sets,
@@ -67,14 +70,22 @@ export function ExerciseData(array) {
     array.array.map((item, index) => (
       <div key={index}>
         <p>Name: {item.name}</p>
+        {!array.timed ?
+        (<div>
         <p>Reps: {item.reps}</p>
         <p>Weight: {item.weight}</p>
+        </div>
+        ) : (
+        <p>Time: {item.reps}</p>
+        )}
+        <p>Sets: {item.sets}</p>
       </div>
     ))
   ) : (
     <p>No data</p>
   )
 }
+export default ExerciseData
 
 // export async function getUserByUid(uid) {
 //   const docRef = doc(db, 'users', uid.uid)

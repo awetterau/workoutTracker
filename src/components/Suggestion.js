@@ -3,9 +3,10 @@ import { addWorkoutDb } from '../services/workoutService.js'
 import { useAuth } from '../services/authService.js'
 import { DisplayData, getApiData } from '../services/apiService.js'
 
-function Suggestion() {
+function Suggestion(props) {
   const [apiParameter, setApiParameter] = useState(undefined)
   const [listType, setListType] = useState('muscle')
+  const [selectedName, setSelectedName] = useState("")
   const [muscleData, setMuscleData] = useState([])
   const user = useAuth()
 
@@ -78,7 +79,7 @@ function Suggestion() {
                 id="cardio"
                 value={undefined}
                 onChange={e => {
-                  setApiParameter(e.target.value) // Returns undefined
+                  setApiParameter(e.target.value) 
                 }}
                 className="select"
               >
@@ -95,12 +96,12 @@ function Suggestion() {
               </select>
             )}
           </p>
-          <div>{<DisplayData muscleData={muscleData} />}</div>{' '}
+          <div>{<DisplayData muscleData={muscleData} selectedName={selectedName} setSelectedName={setSelectedName} setTrigger={props.setTrigger}/>}</div>{' '}
         </div>
       ) : (
         <p>Sign in to record data</p>
       )}
     </div>
-  )
+  ) 
 }
 export default Suggestion
